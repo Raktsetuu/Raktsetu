@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+   <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaktSetu - Blood Donation</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .form-box {
+            max-width: 500px;
+            margin: 25px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px #ddd;
+            display: none;
+        }
+
+        .form-box h2 {
+            color: #b5122b;
+            margin-bottom: 15px;
+        }
+
+        .form-box input,
+        .form-box select,
+        .form-box textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .form-box button {
+            width: 100%;
+        }
+
+        .close-btn {
+            background: #555;
+        }
+
+        .notice {
+            color: #555;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- RaktSetu Logo and Header -->
+<header class="main-header">
+    <div class="brand">
+<div class="brand-logo">
+    <img src="images/raktsetu-logo.png" alt="RaktSetu Logo">
+</div>
+        <div>
+            <h1>RaktSetu</h1>
+            <p>Jeevan se, Jeevan tak ❤️</p>
+        </div>
+    </div>
+    <span class="brand-tagline">Every Drop Counts</span>
+</header>
+
+<header>
+    <h1>🩸 Welcome to RaktSetu</h1>
+    <p>Donate Blood, Save Lives</p>
+</header>
+
+<section class="hero">
+    <p class="tagline">🩸 DONATE BLOOD | SAVE LIVES | SPREAD HOPE</p>
+
+    <h2>Connecting Blood Donors with People in Need</h2>
+    <p>Your one donation can help save a life.</p>
+
+    <div class="cards-container">
+
+        <div class="blood-card">
+            <div class="card-icon">🔎🩸</div>
+            <h3>Find Blood Donor</h3>
+            <p>Search for available donors near you.</p>
+            <button onclick="showForm('findForm')">
+                Search Now →
+            </button>
+        </div>
+
+        <div class="blood-card">
+            <div class="card-icon">🩸🤲</div>
+            <h3>Become a Donor</h3>
+            <p>Register yourself and help save lives.</p>
+            <button onclick="showForm('donorForm')">
+                Register Now →
+            </button>
+        </div>
+
+        <div class="blood-card emergency-card">
+            <div class="card-icon">🚨</div>
+            <h3>Emergency Blood Request</h3>
+            <p>Need blood urgently? Submit a request.</p>
+            <button onclick="showForm('emergencyForm')">
+                Request Now →
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<section class="form-box" id="findForm">
+    <h2>🩸 Find Blood Donor</h2>
+
+    <form onsubmit="searchDonor(event)">
+        <label>Blood Group</label>
+        <select id="searchBlood" required>
+            <option value="">Select Blood Group</option>
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>O+</option>
+            <option>O-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+        </select>
+
+        <label>City</label>
+        <input id="searchCity" type="text"
+               placeholder="Enter your city" required>
+
+        <button type="submit">Search Donor</button>
+        <button type="button" class="close-btn"
+                onclick="hideForms()">Close</button>
+    </form>
+
+    <div id="searchResult"></div>
+</section>
+
+<section class="form-box" id="donorForm">
+    <h2>❤️ Become a Donor</h2>
+
+    <form onsubmit="registerDonor(event)">
+        <input id="donorName" type="text"
+               placeholder="Full Name" required>
+
+        <input id="donorPhone" type="tel"
+               placeholder="Mobile Number" pattern="[0-9]{10}"
+               title="Enter a 10-digit mobile number" required>
+
+        <label>Blood Group</label>
+        <select id="donorBlood" required>
+            <option value="">Select Blood Group</option>
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>O+</option>
+            <option>O-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+        </select>
+
+        <input id="donorCity" type="text"
+               placeholder="City" required>
+
+        <button type="submit">Register as Donor</button>
+        <button type="button" class="close-btn"
+                onclick="hideForms()">Close</button>
+    </form>
+
+    <div id="donorResult"></div>
+</section>
+
+<section class="form-box" id="emergencyForm">
+    <h2>🚨 Emergency Blood Request</h2>
+
+    <form onsubmit="submitRequest(event)">
+        <input id="patientName" type="text"
+               placeholder="Patient Name" required>
+
+        <label>Required Blood Group</label>
+        <select id="requestBlood" required>
+            <option value="">Select Blood Group</option>
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>O+</option>
+            <option>O-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+        </select>
+
+        <input id="hospital" type="text"
+               placeholder="Hospital Name" required>
+
+        <input id="requestCity" type="text"
+               placeholder="City" required>
+
+        <input id="units" type="number"
+               min="1" max="20"
+               placeholder="Units Required" required>
+
+        <input id="contactPhone" type="tel"
+               pattern="[0-9]{10}"
+               placeholder="Contact Mobile Number" required>
+
+        <button type="submit">Submit Blood Request</button>
+        <button type="button" class="close-btn"
+                onclick="hideForms()">Close</button>
+    </form>
+
+    <div id="requestResult"></div>
+</section>
+<section class="features">
+
+    <div class="feature-item">
+        <div class="feature-icon">🛡️</div>
+        <h4>Safe & Reliable</h4>
+        <p>Responsible Blood Donation</p>
+    </div>
+
+    <div class="feature-item">
+        <div class="feature-icon">📍</div>
+        <h4>Quick Search</h4>
+        <p>Find Donors Near You</p>
+    </div>
+
+    <div class="feature-item">
+        <div class="feature-icon">⏰</div>
+        <h4>Emergency Support</h4>
+        <p>Quick Request Submission</p>
+    </div>
+
+    <div class="feature-item">
+        <div class="feature-icon">❤️</div>
+        <h4>Save Lives</h4>
+        <p>Every Donation Matters</p>
+    </div>
+
+    <div class="feature-item">
+        <div class="feature-icon">👥</div>
+        <h4>Stronger Community</h4>
+        <p>Helping People Together</p>
+    </div>
+
+</section>
+<footer style="text-align:center; padding:25px;">
+    <p>🩸 RaktSetu — Connecting Blood Donors with People in Need</p>
+    <p class="notice">
+        Demo project: forms currently save data only in this browser.
+        They do not contact hospitals or donors automatically.
+    </p>
+</footer>
+
+<script>
+    function showForm(formId) {
+        hideForms();
+        document.getElementById(formId).style.display = "block";
+        document.getElementById(formId).scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+    function hideForms() {
+        document.querySelectorAll(".form-box").forEach(function(form) {
+            form.style.display = "none";
+        });
+    }
+
+    function getDonors() {
+        return JSON.parse(localStorage.getItem("raktsetuDonors") || "[]");
+    }
+
+    function registerDonor(event) {
+        event.preventDefault();
+
+        const donor = {
+            name: document.getElementById("donorName").value.trim(),
+            phone: document.getElementById("donorPhone").value.trim(),
+            blood: document.getElementById("donorBlood").value,
+            city: document.getElementById("donorCity").value.trim()
+        };
+
+        const donors = getDonors();
+        donors.push(donor);
+
+        localStorage.setItem("raktsetuDonors", JSON.stringify(donors));
+
+        document.getElementById("donorResult").textContent =
+            "Registration saved in this browser!";
+
+        event.target.reset();
+    }
+
+    function searchDonor(event) {
+        event.preventDefault();
+
+        const blood = document.getElementById("searchBlood").value;
+        const city = document.getElementById("searchCity").value.trim();
+
+        const matches = getDonors().filter(function(donor) {
+            return donor.blood === blood &&
+                donor.city.toLowerCase() === city.toLowerCase();
+        });
+
+        const result = document.getElementById("searchResult");
+        result.replaceChildren();
+
+        if (matches.length === 0) {
+            result.textContent =
+                "No matching donor found in this browser. This is not a search of all donors.";
+            return;
+        }
+
+        matches.forEach(function(donor) {
+            const item = document.createElement("p");
+            item.textContent = donor.name + " — " +
+                donor.blood + " — " + donor.city;
+            result.appendChild(item);
+        });
+    }
+
+    function submitRequest(event) {
+        event.preventDefault();
+
+        const request = {
+            patient: document.getElementById("patientName").value.trim(),
+            blood: document.getElementById("requestBlood").value,
+            hospital: document.getElementById("hospital").value.trim(),
+            city: document.getElementById("requestCity").value.trim(),
+            units: document.getElementById("units").value,
+            phone: document.getElementById("contactPhone").value.trim(),
+            createdAt: new Date().toISOString()
+        };
+
+        const requests = JSON.parse(
+            localStorage.getItem("raktsetuRequests") || "[]"
+        );
+
+        requests.push(request);
+
+        localStorage.setItem("raktsetuRequests", JSON.stringify(requests));
+
+        document.getElementById("requestResult").textContent =
+            "Request saved in this browser. No hospital or donor has been contacted.";
+
+        event.target.reset();
+    }
+</script>
+
+</body>
+</html>
